@@ -46,4 +46,51 @@
     	<location>/02ImplicitObject/Exception.jsp</location>
     </error-page>
     -->
+    
+    <!-- 
+    오라클 접속정보를 컨텍스트 초기화 파라미터로 설정한다.
+    해당 정보는 application 내장객체를 통해 값을 읽을 수 있다.
+    -->
+    <context-param>
+    	<param-name>OracleDriver</param-name>
+    	<param-value>oracle.jdbc.OracleDriver</param-value>
+    </context-param>
+    <context-param>
+    	<param-name>OracleURL</param-name>
+    	<param-value>jdbc:oracle:thin:@localhost:1521:xe</param-value>
+    </context-param>
+    <context-param>
+    	<param-name>OracleId</param-name>
+    	<param-value>musthave</param-value>
+    </context-param>
+    <context-param>
+    	<param-name>OraclePwd</param-name>
+    	<param-value>1234</param-value>
+    </context-param>
+    
+    <!-- 세션유지시간 설정 : web.xml에서는 분단위로 지정한다. -->
+    <session-config>
+   		<session-timeout>20</session-timeout>
+	</session-config>
+	    
+	    
+	<!-- 
+	한글깨짐에 대한 필터설정 : 현재 개발중인 웹애플리케이션 전체에 혀당 필터를 적용한다.
+	웹 애플리케이션으로 들어오는 모든 요청에 대해 문자 인코딩을 UTF-8로 처리한다. t
+	Tomcat10.1에서는 post로 전송시 한글깨짐 현상이 없으나 이전 버전에서는 깨짐현상이 발생하므로 해당 필터설정이 꼭 필요하다.
+	-->
+	<filter>
+   		<filter-name>SetCharEncoding</filter-name>
+   		<filter-class>org.apache.catalina.filters.SetCharacterEncodingFilter</filter-class>
+   		<init-param>
+   			<param-name>encoding</param-name>
+      		<param-value>utf-8</param-value>
+    	</init-param>
+	 </filter>
+	 <filter-mapping>
+		   <filter-name>SetCharEncoding</filter-name>
+		   <url-pattern>/*</url-pattern>
+	 </filter-mapping>
+	    
+    
 </web-app>
