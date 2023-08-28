@@ -13,6 +13,23 @@ public class RegistDTO {
 	private String mobile;
 	private String sms;//문자 수신 여부
 	
+	//생성자
+	public RegistDTO(){}
+	public RegistDTO(String id, String pass, String name, String email, String mailing, String zipcode, String addr1,
+			String addr2, String mobile, String sms) {
+		super();
+		this.id = id;
+		this.pass = pass;
+		this.name = name;
+		this.email = email;
+		this.mailing = mailing;
+		this.zipcode = zipcode;
+		this.addr1 = addr1;
+		this.addr2 = addr2;
+		this.mobile = mobile;
+		this.sms = sms;
+	}
+	
 	//getter/setter 정의
 	public String getId() {
 		return id;

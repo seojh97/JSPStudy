@@ -1,0 +1,16 @@
+    *{font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: 12px;margin: 0px auto;}
+    form{margin-top: 20px;}
+    input, select, buttid_loadingon {border: 1px solid #afafaf;}
+    input.userInput{padding:3px 2px;}
+    select.userSelect{padding:2px 0;}
+    .c_imp{color: red;}
+    .userTable{border: none; border-collapse: collapse; width: 670px;}
+    .userTable td{padding:10px; border: 1px solid #b9babb;}
+    .userTable td.userTit{background-color: #E4E6E9; font-weight: bold;}
+    .btn_search{background-color: #3d3d3d; color: #ffffff; width: 70px; height: 23px; padding:1px 0 2px;}
+    .btn_search:hover{background-color: #6d6d6d;}        
+    .btn_submit{width:120px;height:28px;font-weight:bold;cursor:pointer;background-color: #E70E16;color:white;font-size: 14px;}
+    .btn_cancel{width:120px;height:28px;font-weight:bold;cursor:pointer;background-color: #464646;color:white;font-size: 14px;}
+    .w20{width:20px;} .w30{width:30px;} .w40{width:40px;} .w50{width:50px;} .w100{width:100px;} 
+    .w300{width:300px;} .w510{width:510px;} .w410{width:410px;} 
+    #id_loading{position:absolute;top:400px;z-index:10;width:100%;text-align:center;display:none;}

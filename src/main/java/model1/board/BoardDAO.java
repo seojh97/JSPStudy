@@ -73,6 +73,54 @@ public class BoardDAO extends JDBConnect{
 		return bbs;
 	}
 	
+	//게시물 목록 출력시 페이징 기능 추가
+	public List<BoardDTO> selectListPage(Map<String, Object>map){
+		List<BoardDTO> bbs = new Vector<BoardDTO>();
+		
+		/*
+		검색조건에 일치하는 게시물을 얻어온 후 각 페이지에 출력할 구간까지 설정한 서브쿼리문 작성
+		*/
+		String query = " SELECT * FROM ("
+					+	"	SELECT tb.*, ROWNUM rNum FROM ( "
+					+	"   	SELECT * FROM board	";
+		//검색어가 있는 경우에만 where절을 추가한다.
+		if(map.get("searchWord") != null) {
+			query += " WHERE " + map.get("searchField")
+					+ " LIKE '%" + map.get("searchWord") + "%' ";
+		}
+		/*
+		게시물의 구간을 결정하기 위해 between 혹은 비교연산자를 사용할 수 있다.
+		아래의 where절은 rNum>? 과 같이 변경할 수 있다.
+		*/
+		query += "			ORDER BY num DESC "
+				+ "    ) Tb "
+				+ " ) "
+				+ " WHERE rNum BETWEEN ? AND ?";
+		try {
+			psmt = con.prepareStatement(query);
+			psmt.setString(1, map.get("start").toString());
+			psmt.setString(2, map.get("end").toString());
+			rs = psmt.executeQuery();
+			while(rs.next()) {
+				BoardDTO dto = new BoardDTO();
+				dto.setNum(rs.getString("num"));
+				dto.setTitle(rs.getString("title"));
+				dto.setContent(rs.getString("content"));
+				dto.setPostdate(rs.getDate("postdate"));
+				dto.setId(rs.getString("id"));
+				dto.setVisitcount(rs.getString("visitcount"));
+				
+				bbs.add(dto);
+			}
+		}
+		catch(Exception e) {
+			System.out.println("게시물 조회 중 예외 발생");
+			e.printStackTrace();
+		}
+		return bbs;
+		
+	}
+	
 	//게시물 입력을 위한 메서드. 폼값이 저장된 DTO객체를 인수로 받는다.
 	public int insertWrite(BoardDTO dto) {
 		int result = 0;
