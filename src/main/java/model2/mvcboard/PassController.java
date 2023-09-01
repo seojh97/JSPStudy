@@ -46,9 +46,15 @@ public class PassController extends HttpServlet{
 		
 		//패스워드와 일치하는 게시물이 있는 경우에는 후속 처리를한다.
 		if(confirmed) {
-			if(mode.equals("edit")) {
+			if(mode.equals("edit")) {//mode=edit 인 경우
+				//서블릿에서 session내장객체를 얻어온다.
 				HttpSession session = req.getSession();
+				//입력한 패스워드를 세션영역에 저장한다.
 				session.setAttribute("pass", pass);
+				/*
+				수정페이지로 이동한다.
+				앞에서 저장된 패스워드는 페이지를 이동하더라도 공유된다.
+				*/
 				resp.sendRedirect("../mvcboard/edit.do?idx=" + idx);
 			}
 			else if(mode.equals("delete")) { //mode=delete인 경우 
